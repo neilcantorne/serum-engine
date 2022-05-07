@@ -7,5 +7,8 @@
   "license": "MPL-2.0",
   "devDependencies": {
     "yarn": "^1.22.18"
+  },
+  "dependencies": {
+    "parcel": "^2.5.0"
   }
 }
