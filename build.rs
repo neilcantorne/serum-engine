@@ -9,6 +9,8 @@ fn main() {
         println!("cargo:info=Building Serum Labs WebApp");
         execute_npm(&["run", "build"], "labs/");
     }
+
+    embed_resource::compile("resource.rc");
 }
 
 fn resolve_path<P>(path: P) -> Option<PathBuf>
