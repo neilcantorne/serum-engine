@@ -2,7 +2,9 @@
   "name": "serum-labs",
   "version": "1.0.0",
   "description": "Web application for Serum Labs",
-  "scripts": {},
+  "scripts": {
+    "build": "parcel build html/index.html"
+  },
   "author": "Neil Cantorne",
   "license": "MPL-2.0",
   "devDependencies": {
