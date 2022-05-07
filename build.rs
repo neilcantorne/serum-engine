@@ -7,7 +7,7 @@ fn main() {
         // Build Serum Labs WebApp
         println!("cargo:rerun-if-changed=labs/src");
         println!("cargo:info=Building Serum Labs WebApp");
-        execute_npm(&["run", "build"], "labs/");
+        execute_npm(&["run", "build"], "web/");
     }
 
     embed_resource::compile("resource.rc");
