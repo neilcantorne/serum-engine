@@ -1,4 +1,19 @@
 body {
     background-color: var(--background-color);
+    background-image: url('../assets/background.svg');
+    background-repeat: no-repeat;
+    background-size: auto min(100vw, 178vh);
     color: var(--foreground-color);
+}
+
+@media (orientation: landscape) {
+    body {
+        background-size: 100vw max(56.25vw, 100vh);
+    }
+}
+
+@media (orientation: portrait) {
+    body {
+        background-size: max(56.25vh, 100vw) 100vh;
+    }
 }
