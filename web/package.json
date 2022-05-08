@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "Web application for Serum Labs",
   "scripts": {
-    "build": "parcel build html/index.html"
+    "clean:output": "rimraf dist",
+    "build": "npm run clean:output && parcel build html/index.html"
   },
   "author": "Neil Cantorne",
   "license": "MPL-2.0",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.5.0",
+    "rimraf": "^3.0.2",
     "yarn": "^1.22.18"
   },
   "dependencies": {
