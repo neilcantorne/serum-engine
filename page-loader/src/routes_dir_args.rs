@@ -1,5 +1,6 @@
 use std::{env::var, path::PathBuf};
 
+use mime_guess::Mime;
 use proc_macro2::TokenStream;
 use quote::ToTokens;
 
@@ -71,7 +72,7 @@ impl RouteItems {
 }
 
 impl Iterator for RouteItems  {
-    type Item =  (String, String);
+    type Item =  (String, String, String);
 
     fn next(&mut self) -> Option<Self::Item> {
         if let Some(entry) = self.next_skip_maps() {
@@ -80,9 +81,16 @@ impl Iterator for RouteItems  {
                 return Some((
                     format!("/{}", rel_path.to_str().unwrap()),
                     entry.path()
-                            .to_str()
-                            .unwrap()
-                            .to_owned()
+                    .to_str()
+                    .unwrap()
+                    .to_owned(),
+                    
+                    if let Some(mime) = mime_guess::from_path(rel_path).first() {
+                        mime.essence_str().to_owned()
+                    }
+                    else {
+                        "application/x-binary".to_owned()
+                    }
                 ));
             }
         }

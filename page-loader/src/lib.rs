@@ -11,13 +11,14 @@ pub fn route_directory(tokens: TokenStream) -> TokenStream {
 
     let mut buffer = args.actix_app.clone();
 
-    for (route_path, physical_path) in args.route_item() {
+    for (route_path, physical_path, mime) in args.route_item() {
+
         let route = quote!{
             .route(#route_path,
                 actix_web::web::get()
                     .to(move || async move {
                         const CONTENT : &[u8] = include_bytes!(#physical_path);
-                        actix_web::HttpResponse::Ok().body(CONTENT)
+                        actix_web::HttpResponse::Ok().content_type(#mime).body(CONTENT)
                 }))
         };
 
@@ -29,7 +30,7 @@ pub fn route_directory(tokens: TokenStream) -> TokenStream {
             actix_web::web::get()
                 .to(move || async move {
                     const CONTENT : &[u8] = include_bytes!(#physical_path);
-                    actix_web::HttpResponse::Ok().body(CONTENT)
+                    actix_web::HttpResponse::Ok().content_type(#mime).body(CONTENT)
             })))
         }
     }
