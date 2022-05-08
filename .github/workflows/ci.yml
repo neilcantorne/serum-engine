@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Setup Node.js
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.1.1
+        with:
+          node-version: 16.15
+      
+      - name: Install yarn
+        run: npm install -g yarn
+
+      # Setup Rust
+      - name: Setup Rust toolchain
+        uses: actions-rs/toolchain@v1.0.6
+        with:
+          toolchain: stable
+      
+      # Run yarn install
+      - name: Install node modules
+        working-directory: ./web
+        run: yarn install
+
+      # Build project
+      - name: Run cargo build
+        run: cargo build --verbose
