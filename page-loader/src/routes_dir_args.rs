@@ -1,6 +1,5 @@
 use std::{env::var, path::PathBuf};
 
-use mime_guess::Mime;
 use proc_macro2::TokenStream;
 use quote::ToTokens;
 
