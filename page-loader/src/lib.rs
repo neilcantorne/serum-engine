@@ -34,7 +34,5 @@ pub fn route_directory(tokens: TokenStream) -> TokenStream {
         }
     }
 
-    eprintln!("{}", buffer);
-
     return TokenStream::from(buffer);
 }
