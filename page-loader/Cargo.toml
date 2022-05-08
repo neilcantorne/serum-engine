@@ -12,3 +12,4 @@ proc-macro = true
 quote = "1.0.18"
 syn = {version = "1.0.92", features = ["full"]}
 proc-macro2 = "1.0.38"
+mime_guess = "2.0.4"
