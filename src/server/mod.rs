@@ -1,12 +1,14 @@
 mod routes;
 
-use actix_web::{HttpServer, App, HttpResponse};
+use actix_web::{HttpServer, App};
 
 pub async fn run() {
     let port = pick_port();
     
     let http = HttpServer::new(|| {
-        let app = App::new();
+        let app = App::new()
+            .service(routes::retrieve_theme);
+            
         page_loader::route_directory!(app, "web/dist")
 
     })
