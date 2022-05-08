@@ -10,6 +10,7 @@
   "license": "MPL-2.0",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.5.0",
+    "eslint": "^8.15.0",
     "rimraf": "^3.0.2",
     "yarn": "^1.22.18"
   },
