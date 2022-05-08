@@ -56,22 +56,34 @@ pub (crate) struct RouteItems {
     pub(self) inner: std::fs::ReadDir
 } 
 
+impl RouteItems {
+    fn next_skip_maps(&mut self) -> Option<std::fs::DirEntry> {
+        while let Some(result) = self.inner.next() {
+            let entry = result.expect("Failed to file in directory");
+
+            if !entry.path().ends_with("map") {
+                return Some(entry);
+            }
+        }
+
+        None
+    }
+}
+
 impl Iterator for RouteItems  {
     type Item =  (String, String);
 
     fn next(&mut self) -> Option<Self::Item> {
-        if let Some(result) = self.inner.next() {
-            if let Ok(entry) = result {
-                if let Ok(rel_path)  = entry.path()
-                .strip_prefix(self.parent.as_path()) {
-                    return Some((
-                        format!("/{}", rel_path.to_str().unwrap()),
-                        entry.path()
-                                .to_str()
-                                .unwrap()
-                                .to_owned()
-                    ));
-                }
+        if let Some(entry) = self.next_skip_maps() {
+            if let Ok(rel_path)  = entry.path()
+            .strip_prefix(self.parent.as_path()) {
+                return Some((
+                    format!("/{}", rel_path.to_str().unwrap()),
+                    entry.path()
+                            .to_str()
+                            .unwrap()
+                            .to_owned()
+                ));
             }
         }
 
