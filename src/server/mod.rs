@@ -1,16 +1,14 @@
 mod routes;
 
-use actix_web::{HttpServer, App};
+use actix_web::{HttpServer, App, HttpResponse};
 
 pub async fn run() {
     let port = pick_port();
-
+    
     let http = HttpServer::new(|| {
-        App::new()
-        .service(routes::serve_index)
-        .service(routes::serve_script)
-        .service(routes::serve_style)
-        .service(routes::serve_favicon)
+        let app = App::new();
+        page_loader::route_directory!(app, "web/dist")
+
     })
     .bind(("127.0.0.1", port)).unwrap();
 
