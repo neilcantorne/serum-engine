@@ -5,7 +5,10 @@ fn main() {
     
     {
         // Build Serum Labs WebApp
-        println!("cargo:rerun-if-changed=labs/src");
+        println!("cargo:rerun-if-changed=web/src");
+        println!("cargo:rerun-if-changed=web/package-lock.json");
+        println!("cargo:rerun-if-changed=web/yarn.lock");
+
         println!("cargo:info=Building Serum Labs WebApp");
         execute_npm(&["run", "build"], "web/");
     }
